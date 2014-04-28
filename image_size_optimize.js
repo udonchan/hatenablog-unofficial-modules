@@ -72,7 +72,7 @@ jQueryの機能を加えるのに便利である。
             tempImage.onload = function(){
                 var actualDimension = getActualDimension(tempImage);
                 var ratio = actualDimension.width / actualDimension.height;
-                var height = (actualDimension.height > maxHeight)?maxHeight:actualDimension.height;
+                var height = Math.min(maxHeight, actualDimension.height);
                 var width = height * ratio;
                 imageElm.width = width;
                 imageElm.height = height;
