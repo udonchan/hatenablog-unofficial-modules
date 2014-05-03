@@ -12,14 +12,6 @@ be useful for adding ability of jQuery to your aplication.
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 
-The several theme havs auto image resize setting using "max-width" property in css.
-As long as to disable it, this code may not work well. The following description is 
-a example that disable to auto resize setting.
-
-div.entry-content p img{
-    max-width:none;
-}
-
 In addition it would work if you put this code in fotter using blog design setting.
 
 * 写真ブログ向けの画像サイズ最適化
@@ -33,14 +25,6 @@ In addition it would work if you put this code in fotter using blog design setti
 jQueryの機能を加えるのに便利である。
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-
-いくつかのテーマはCSSの「max-width」プロパティを用いた画像の自動サイズ調整のセッティングを持っている。
-それを無効にしない限り、このコードはうまく動作しないかもしれない。以下のコードは自動サイズ調整機能を
-無効にする記述の例である。
-
-div.entry-content p img{
-    max-width:none;
-}
 
 加えて、デザイン設定を用いてこのコード自身をフッタに追加することで動作するようになる。
 
@@ -93,15 +77,20 @@ div.entry-content p img{
                 var ratio = actualDimension.width / actualDimension.height;
                 var height = Math.min(maxHeight, actualDimension.height);
                 var width = height * ratio;
+                // in first, adjust image height
                 if(width > maxWidth){
                     width = maxWidth;
                     height = width / ratio;
                 }
+                // if image width is larger than contents area, 
+                // this code enables image to be displayed 
+                // overflowing and centering.
                 if(width > innerWidth){
                     $(imageElm).css("position", "relative")
-                        .css("left", (innerWidth - width)/2);
+                        .css("left", (innerWidth - width)/2)
+                        .css("max-width", "none");
                 } else {
-                    $(imageElm).css("position", "static")
+                    $(imageElm).css("position", "static");
                 }
                 imageElm.width = width;
                 imageElm.height = height;
